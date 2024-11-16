@@ -159,5 +159,65 @@ This project leverages YOLOv5 (a state-of-the-art object detection algorithm) to
 
 []()
 
+# 영상 취득 방법
 
+1. 보행자 신호 영상이 들어있는 영상을 다운로드한다.
+2. https://www.zaivhub.com/ko/yolov5
+    
+    해당 사이트를 통하여 DarkLabel 프로그램과 data.yaml 파일을 다운 받은 후에 사용하여 수집한 영상 및 이미지에 대해 라벨이 달린 이미지로 변환이 가능합니다.
+    
+3. DarkLabel.yml 파일을 열고 수정을 한다. 
+
+```python
+traffic_signal: ["red_sign","yellow_sign","count"]
+
+format10:    # bird detection yolo (predefined format]
+  fixed_filetype: 1                 # if specified as true, save setting isn't changeable in GUI
+  data_fmt: [classid, ncx, ncy, nw, nh]
+  gt_file_ext: "txt"                 # if not specified, default setting is used
+  gt_merged: 0                    # if not specified, default setting is used
+  delimiter: " "                     # if not spedified, default delimiter(',') is used
+  classes_set: "traffic_signal"     # if not specified, default setting is used
+  name: "traffic_signal"
+```
+![image (2)](https://github.com/user-attachments/assets/2026aac9-ef18-40ae-b7b0-6398d30bda81)
+
+
+
+1. 라벨링을 진행 해준뒤 images 와 gt를 저장해준다.
+
+1. data .yaml 파일을수정해준다. 
+
+```python
+names:  # Classes name
+- red_sign
+- yellow_sign
+- count
+
+train: /content/drive/MyDrive/yolov5/Train/images  # train images 경로
+val: /content/drive/MyDrive/yolov5/Val # val images 경로
+```
+
+```python
+sudo apt-get install git
+glt clone https://github.com/ultralytics/yolov5.git
+
+sudo apt-get install pip
+cd yolov5
+pip install -r requiremets.txt
+```
+
+1. 이미지와 라벨링한 사진을 yolov5 → train→  안에 넣어준다.
+
+```python
+python3 detect.py --source <입력 경로> --weights <가중치 파일 경로> --conf <신뢰도 임계값> --save-txt --save-conf --img-size <이미지 크기>
+
+```
+
+1. 모델 학습검증 결과 검증
+
+```python
+python3 detect.py --source /path/to/input --weights /home/amap/yolov5/runs/train/lane_1000/weights/best.pt --img 64 --conf 0.4 --save-txt --save-conf
+
+```
 
