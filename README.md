@@ -149,8 +149,7 @@ Camera-based assistance feature for visually impaired pedestrians at crosswalks
 
 
     
-3. 
-"Open and edit the DarkLabel.yml file." 
+3. "Open and edit the DarkLabel.yml file." 
 
 ```python
 traffic_signal: ["red_sign","yellow_sign","count"]
